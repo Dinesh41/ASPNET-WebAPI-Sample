@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Http;
-using System.Web.Http.OData;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Deltas;
+using Microsoft.AspNetCore.OData.Query;
 using Newtonsoft.Json;
 using SampleWebApi.Models;
 using SampleWebApi.Repositories;
@@ -11,8 +11,9 @@ using SampleWebApi.Services;
 
 namespace SampleWebApi.Controllers
 {
-    [RoutePrefix("api/house")]
-    public class HouseController : ApiController
+    [Route("api/house")]
+    [ApiController]
+    public class HouseController : ControllerBase
     {
         private readonly IHouseRepository _houseRepository;
         const int MaxPageSize = 10;
@@ -27,7 +28,7 @@ namespace SampleWebApi.Controllers
         [HttpGet]
         [EnableQuery(PageSize = MaxPageSize)]
         [Route("")]
-        public IHttpActionResult Get(int page = 1, int pageSize = MaxPageSize)
+        public IActionResult Get(int page = 1, int pageSize = MaxPageSize)
         {
             if (pageSize > MaxPageSize)
             {
@@ -47,7 +48,7 @@ namespace SampleWebApi.Controllers
                     .Take(pageSize)
                     .ToList();
 
-            HttpContext.Current.Response.AppendHeader("X-Pagination", JsonConvert.SerializeObject(paginationHeader));
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationHeader));
 
             return Ok(result.Select(x => _houseMapper.MapToDto(x)));
         }
@@ -55,7 +56,7 @@ namespace SampleWebApi.Controllers
         [HttpGet]
         [Route("{id:int}", Name = "GetSingleHouse")]
         [EnableQuery(PageSize = 1)]
-        public IHttpActionResult GetSingle(int id)
+        public IActionResult GetSingle(int id)
         {
             HouseEntity houseEntity = _houseRepository.GetSingle(id);
 
@@ -69,7 +70,7 @@ namespace SampleWebApi.Controllers
 
         [HttpPost]
         [Route("")]
-        public IHttpActionResult Create([FromBody] HouseDto houseDto)
+        public IActionResult Create([FromBody] HouseDto houseDto)
         {
             if (houseDto == null)
             {
@@ -90,7 +91,7 @@ namespace SampleWebApi.Controllers
 
         [HttpPut]
         [Route("{id:int}")]
-        public IHttpActionResult Update(int id, [FromBody] HouseDto houseDto)
+        public IActionResult Update(int id, [FromBody] HouseDto houseDto)
         {
             if (houseDto == null)
             {
@@ -120,7 +121,7 @@ namespace SampleWebApi.Controllers
 
         [HttpPatch]
         [Route("{id:int}")]
-        public IHttpActionResult Patch(int id, Delta<HouseDto> houseDto)
+        public IActionResult Patch(int id, Delta<HouseDto> houseDto)
         {
             if (houseDto == null)
             {
@@ -149,7 +150,7 @@ namespace SampleWebApi.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
-        public IHttpActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             HouseEntity houseEntityToDelete = _houseRepository.GetSingle(id);
 
@@ -160,7 +161,7 @@ namespace SampleWebApi.Controllers
 
             _houseRepository.Delete(id);
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return StatusCode(StatusCodes.Status204NoContent);
         }
     }
 }

@@ -1,0 +1,10 @@
+FILE PATH,SOURCE FILE,PARSER OUT
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi,Startup.cs,Potential problematic namespace used System
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\Controllers,HouseController.cs,Potential problematic namespace used System.Net
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\Models,HouseDto.cs,Potential problematic namespace used System
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\Models,HouseEntity.cs,Potential problematic namespace used System
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\obj\Debug,.NETFramework,Version=v4.8.AssemblyAttributes.cs,Potential problematic namespace used System
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\obj\Debug,.NETFramework,Version=v4.8.AssemblyAttributes.cs,Potential problematic namespace used System.Reflection
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\Properties,AssemblyInfo.cs,Potential problematic namespace used System.Reflection
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\Properties,AssemblyInfo.cs,Potential problematic namespace used System.Runtime.CompilerServices
+D:\projects\Relativity\Git Clone\ASPNET-WebAPI-Sample\SampleWebApi\Properties,AssemblyInfo.cs,Potential problematic namespace used System.Runtime.InteropServices
